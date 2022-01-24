@@ -6,6 +6,10 @@ import { CommService } from 'src/app/services/communication.service';
 import { Room } from 'src/app/types/Room';
 import { User } from 'src/app/types/User';
 import { AuthService } from 'src/app/services/auth.service';
+// @ts-ignore
+import * as language from '../../../environments/internationalization.json';
+import { LanguageProperties } from 'src/app/types/Misc';
+
 
 @Component({
     selector: 'participants',
@@ -14,12 +18,16 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ParticipantsComponent implements OnInit {
 
+    public readonly languageProperties: LanguageProperties = language;
+
     constructor(
         private layoutService: LayoutService,
         private commService: CommService,
         private location: Location,
         private authService: AuthService
-    ) { }
+    ) {
+        
+    }
 
     ngOnInit(): void {
     }
@@ -33,6 +41,13 @@ export class ParticipantsComponent implements OnInit {
         if (user)
             return user;
         return {} as User;
+    }
+
+    public getCurrentLanguage(): string {
+        const user = this.authService.returnUser();
+        if (user)
+            return user.language;
+        return 'en';
     }
 
     public getParticipantsText(text: string): string {

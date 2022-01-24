@@ -7,7 +7,9 @@ import { DisplayRoom, Room, Rooms } from 'src/app/types/Room';
 import { getTextWidth } from 'src/app/utils';
 import { AuthService } from 'src/app/services/auth.service';
 import { RawObjectId } from 'src/app/types/Misc';
-
+// @ts-ignore
+import * as language from '../../../environments/internationalization.json';
+import { LanguageProperties } from 'src/app/types/Misc';
 
 @Component({
     selector: 'sidebar',
@@ -15,6 +17,8 @@ import { RawObjectId } from 'src/app/types/Misc';
     styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+
+    public readonly languageProperties: LanguageProperties = language;
 
     constructor(
         private commService: CommService,
@@ -25,6 +29,13 @@ export class SidebarComponent implements OnInit {
     }
 
     ngOnInit(): void {
+    }
+
+    public getCurrentLanguage(): string {
+        const user = this.authService.returnUser();
+        if (user)
+            return user.language;
+        return 'en';
     }
 
     public getParticipantsText(text: string): string {
@@ -60,11 +71,11 @@ export class SidebarComponent implements OnInit {
                 (participant) => participant._id !== this.authService.returnUser()?._id
             )
             if (participant) {
-                return participant.username;
+                return participant.avatar;
             }
         }
         return room.participants.map(
-            (participant) => participant.username
+            (participant) => participant.avatar
         ).join(', ');
     }
 

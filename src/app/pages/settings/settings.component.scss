@@ -129,13 +129,14 @@ span.separator {
 }
 
 .account > .content > .user-info {
+    z-index: 52;
     display: flex;
     flex-direction: column;
     padding: 20px;
     border: 0;
-    border-radius: 6px;
+    border-radius: 0 0 8px 8px;
     background-color: $tertiary-bg;
-    box-shadow: 0 1px 1px 1px #00000020;
+    box-shadow: 0 1px 2px 0 #00000020;
 }
 .account > .content > .additional-info {
     display: flex;
@@ -145,4 +146,76 @@ span.separator {
 .user-info > .info, .additional-info > .info {
     display: flex;
     flex-direction: column;
+}
+
+.avatar-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    background-color: $header-bg;
+    z-index: 51;
+    box-shadow: 0 1px 2px 0 #00000030;
+    padding: 30px 0;
+}
+
+.avatar-wrapper > img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: $tertiary-bg;
+    margin-bottom: -69px;
+    border: 1px solid $link-color-alt;
+    box-shadow : 0 2px 2px 0 #00000050;
+}
+
+
+/*** PROFILE GOES HERE ***/
+
+.avatar-picker {
+    margin-top: 10px;
+}
+
+.avatar-example {
+    padding-left: 20px;
+    background-color: $header-bg;
+    border-radius: 8px 8px 0 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-example > img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: $tertiary-bg;
+    box-shadow : 0 2px 2px 0 #00000050;
+}
+
+.avatar-selector, .language-selector {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 5px 20px;
+    border-radius: 0 0 8px 8px;
+    background-color: $tertiary-bg;
+    box-shadow: 0 1px 2px 0 #00000020;
+}
+
+.avatar-selector > input {
+    width: 400px;
+}
+
+.language-selector {
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+.save-profile {
+    margin-top: 20px;
+    width: 100px;
 }

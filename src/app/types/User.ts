@@ -6,6 +6,8 @@ export interface User {
     username: string;
     tag: string;
     email: string;
+    avatar: string;
+    language: string;
     createdAt: Date;
     updatedAt: Date;
     status: string;
@@ -17,8 +19,14 @@ export interface MessageUser {
     username: string;
     tag: string;
     email: string;
+    avatar: string;
     createdAt: Date;
     updatedAt: Date;
+}
+
+export interface ProfileUpdateProps {
+    avatar?: string;
+    language?: string;
 }
 
 export interface UserUpdateProps {
@@ -26,6 +34,7 @@ export interface UserUpdateProps {
     tag?: string;
     email?: string;
     token?: string;
+    status?: string;
 }
 
 export interface LoginUserProps {
@@ -38,6 +47,8 @@ export interface ResponseUser {
     username?: string;
     tag?: string;
     email?: string;
+    avatar?: string;
+    language?: string;
     createdAt?: Date;
     updatedAt?: Date;
     status?: string;
@@ -49,6 +60,7 @@ export interface SocketRoomUser {
     username: string;
     tag: string;
     email: string;
+    avatar: string;
     createdAt: Date;
     updatedAt: Date;
 }

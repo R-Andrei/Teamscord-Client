@@ -7,6 +7,10 @@ import { Room } from 'src/app/types/Room';
 import { getTextWidth } from 'src/app/utils';
 import { Message, Messages } from 'src/app/types/Message';
 import { SocketService } from 'src/app/services/sockets.service';
+// @ts-ignore
+import * as language from '../../../environments/internationalization.json';
+import { LanguageProperties } from 'src/app/types/Misc';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'chat',
@@ -17,15 +21,24 @@ export class ChatComponent implements OnInit {
 
     // @ts-ignore: Unreachable code error
     @ViewChild('chat') chat: ElementRef;
+    public readonly languageProperties: LanguageProperties = language;
 
     constructor(
         private commService: CommService,
         private socketService: SocketService,
+        private authService: AuthService,
         private location: Location
     ) { }
 
     ngOnInit(): void {
         console.log('init');
+    }
+
+    public getCurrentLanguage(): string {
+        const user = this.authService.returnUser();
+        if (user)
+            return user.language;
+        return 'en';
     }
 
     public messageLoading(): boolean {

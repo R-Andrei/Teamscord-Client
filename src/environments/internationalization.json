@@ -1,0 +1,182 @@
+{
+    "en": {
+        "layout": {
+            "settingsModal": "Open Settings",
+            "startConversation": "Start Conversation",
+            "chatPlaceholder": "Message"
+        },
+        "pages": {
+            "settings": {
+                "sidebar": {
+                    "title": "Settings",
+                    "account": "Account",
+                    "profile": "Profile",
+                    "about": "About",
+                    "logout": "Log Out",
+                    "exit": "Exit"
+                },
+                "tabs": {
+                    "account": {
+                        "title": "Account",
+                        "username": "Username",
+                        "email": "Email",
+                        "createdAt": "Joined",
+                        "updatedAt": "Updated"
+                    },
+                    "profile": {
+                        "title": "Profile",
+                        "avatarSeedLabel": "Your avatar seed goes here",
+                        "avatarSeedInfo": "Your avatar is generated based on your seed here. Try it out!",
+                        "languageLabel": "Language",
+                        "languageInfo": "Language was a requirement so we had to put this here. :) ",
+                        "saveButton": "Save"
+                    }
+                }
+            }
+        }
+    },
+    "es": {
+        "layout": {
+            "settingsModal": "Abrir Configuración",
+            "startConversation": "Iniciar Conversación",
+            "chatPlaceholder": "Mensaje"
+        },
+        "pages": {
+            "settings": {
+                "sidebar": {
+                    "title": "Configuración",
+                    "account": "Cuenta",
+                    "profile": "Perfil",
+                    "about": "Acerca de",
+                    "logout": "Cerrar sesión",
+                    "exit": "Salir"
+                },
+                "tabs": {
+                    "account": {
+                        "title": "Cuenta",
+                        "username": "Nombre de usuario",
+                        "email": "Correo electrónico",
+                        "createdAt": "Unido",
+                        "updatedAt": "Actualizado"
+                    },
+                    "profile": {
+                        "title": "Perfil",
+                        "avatarSeedLabel": "Tu semilla de avatar va aquí",
+                        "avatarSeedInfo": "Tu avatar se genera basado en tu semilla aquí. ¡Prueba!",
+                        "languageLabel": "Idioma",
+                        "languageInfo": "Idioma fue un requisito así que hemos puesto esto aquí. :) ",
+                        "saveButton": "Guardar"
+                    }
+                }
+            }
+        }
+    },
+    "fr": {
+        "layout": {
+            "settingsModal": "Ouvrir les paramètres",
+            "startConversation": "Démarrer une conversation",
+            "chatPlaceholder": "Message"
+        },
+        "pages": {
+            "settings": {
+                "sidebar": {
+                    "title": "Paramètres",
+                    "account": "Compte",
+                    "profile": "Profil",
+                    "about": "À propos",
+                    "logout": "Déconnexion",
+                    "exit": "Quitter"
+                },
+                "tabs": {
+                    "account": {
+                        "title": "Compte",
+                        "username": "Nom d'utilisateur",
+                        "email": "Email",
+                        "createdAt": "Inscrit",
+                        "updatedAt": "Mis à jour"
+                    },
+                    "profile": {
+                        "title": "Profil",
+                        "avatarSeedLabel": "Votre grain de sel d'avatar va ici",
+                        "avatarSeedInfo": "Votre avatar est généré en fonction de votre grain de sel ici. Essayez-le !",
+                        "languageLabel": "Langue",
+                        "languageInfo": "La langue était une exigence donc nous avons mis cela ici. :) ",
+                        "saveButton": "Enregistrer"
+                    }
+                }
+            }
+        }
+    },
+    "de": {
+        "layout": {
+            "settingsModal": "Einstellungen öffnen",
+            "startConversation": "Konversation starten",
+            "chatPlaceholder": "Nachricht"
+        },
+        "pages": {
+            "settings": {
+                "sidebar": {
+                    "title": "Einstellungen",
+                    "account": "Konto",
+                    "profile": "Profil",
+                    "about": "Über",
+                    "logout": "Abmelden",
+                    "exit": "Beenden"
+                },
+                "tabs": {
+                    "account": {
+                        "title": "Konto",
+                        "username": "Benutzername",
+                        "email": "Email",
+                        "createdAt": "Registriert",
+                        "updatedAt": "Aktualisiert"
+                    },
+                    "profile": {
+                        "title": "Profil",
+                        "avatarSeedLabel": "Ihr Avatar-Seed geht hier hin",
+                        "avatarSeedInfo": "Ihr Avatar wird basierend auf Ihrem Seed hier generiert. Versuchen Sie es!",
+                        "languageLabel": "Sprache",
+                        "languageInfo": "Sprache war ein Anforderung, so dass wir dies hier gesetzt haben. :) ",
+                        "saveButton": "Speichern"
+                    }
+                }
+            }
+        }
+    },
+    "jp": {
+        "layout": {
+            "settingsModal": "設定を開く",
+            "startConversation": "会話を開始",
+            "chatPlaceholder": "メッセージ"
+        },
+        "pages": {
+            "settings": {
+                "sidebar": {
+                    "title": "設定",
+                    "account": "アカウント",
+                    "profile": "プロフィール",
+                    "about": "約",
+                    "logout": "ログアウト",
+                    "exit": "終了"
+                },
+                "tabs": {
+                    "account": {
+                        "title": "アカウント",
+                        "username": "ユーザー名",
+                        "email": "Eメール",
+                        "createdAt": "登録",
+                        "updatedAt": "更新"
+                    },
+                    "profile": {
+                        "title": "プロフィール",
+                        "avatarSeedLabel": "あなたのアバターシードはここにあります",
+                        "avatarSeedInfo": "あなたのアバターはシードに基づいて生成されます。それを試してみてください！",
+                        "languageLabel": "言語",
+                        "languageInfo": "言語は必須だったので、ここに設定しました。 :) ",
+                        "saveButton": "保存"
+                    }
+                }
+            }
+        }
+    }
+}

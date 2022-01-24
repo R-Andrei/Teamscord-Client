@@ -30,8 +30,6 @@ export class SocketService {
             const senderId: RawObjectId = message.sender._id;
             const currentUser: User | null = authService.returnUser();
             if (currentUser) {
-                console.log(`current user: ${currentUser._id}`);
-                console.log(`received message from: ${senderId}`);
                 if (senderId !== currentUser._id) {
                     this.commService.handleReceivedMessage(message);
                 }
@@ -51,6 +49,7 @@ export class SocketService {
                     return {
                         _id: participant._id,
                         username: participant.username,
+                        avatar: participant.avatar,
                         tag: participant.tag,
                         email: participant.email,
                         createdAt: participant.createdAt,
@@ -69,6 +68,7 @@ export class SocketService {
             const socketUser: SocketUser = {
                 _id: user._id,
                 username: user.username,
+                avatar: user.avatar,
                 tag: user.tag,
                 email: user.email,
                 rooms: socketRooms,
@@ -83,7 +83,6 @@ export class SocketService {
     }
 
     public sendMessage(message: Message): void {
-        console.log('sending message to socket server');
         this.socket.emit('sendMessage', message);
     }
 

@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import { ResponseRoom, ResponseRoomList, ResponseRooms, Room, Rooms } from '../types/Room';
 import { RawObjectId } from '../types/Misc';
-import { MessageUser, ResponseUser, User } from '../types/User';
+import { MessageUser, ProfileUpdateProps, ResponseUser, User } from '../types/User';
 import { ResponseMessage, ResponseMessageList, ResponseMessages } from '../types/Message';
 import { AuthService } from './auth.service';
 import { Message } from '../types/Message';
@@ -145,6 +145,7 @@ export class CommService {
                 const messageUser: MessageUser = {
                     _id: user._id,
                     username: user.username,
+                    avatar: user.avatar,
                     tag: user.tag,
                     email: user.email,
                     createdAt: user.createdAt,
@@ -214,6 +215,35 @@ export class CommService {
         return room;
     }
 
+    public updateRoomParticipantProfile(
+        userId: RawObjectId,
+        profileData: ProfileUpdateProps
+    ): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            // map rooms to update
+            const rooms: Rooms = this.rooms.map(
+                (room: Room): Room => {
+                    room.participants = room.participants.map(
+                        (participant: User): User => {
+                            if (participant._id === userId) {
+                                const { language, avatar } = profileData;
+                                return {
+                                    ...participant,
+                                    language: (language) ? language : participant.language,
+                                    avatar: (avatar) ? avatar : participant.avatar
+                                }
+                            }
+                            return participant;
+                        }
+                    );
+                    return room;
+                }
+            );
+            this.rooms = rooms;
+            resolve(true);
+        });
+    }
+
     private mapResponseRooms(responseRooms: ResponseRoomList): Rooms {
         return responseRooms.map(
             (responseRoom: ResponseRoom): Room => {
@@ -253,20 +283,28 @@ export class CommService {
     }
 
     private buildUser(responseUser: ResponseUser): User {
-        const { _id, username, tag, email, status, createdAt, updatedAt } = responseUser;
+        const {
+            _id, username, tag, email,
+            status, createdAt, updatedAt,
+            avatar, language
+        } = responseUser;
         if (
             _id && username && tag && email &&
-            createdAt && updatedAt && status
+            createdAt && updatedAt && status &&
+            avatar && language
         ) {
             return {
                 _id, username, tag, email,
-                createdAt, updatedAt, status
+                createdAt, updatedAt, status,
+                avatar, language
             };
         } else {
             return {
                 _id: '$invalid$',
                 username: '$invalid$',
                 tag: '$invalid$',
+                avatar: '$invalid$',
+                language: '$invalid$',
                 email: '$invalid$',
                 createdAt: new Date(),
                 updatedAt: new Date(),
