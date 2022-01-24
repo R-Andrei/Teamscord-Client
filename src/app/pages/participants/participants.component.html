@@ -5,7 +5,7 @@
         </div>
         <button *ngFor="let buddy of this.getParticipants()" class="buddy">
             <div class="avatar">
-                <img src="https://avatars.dicebear.com/api/bottts/{{buddy.username}}.svg" alt="">
+                <img src="https://avatars.dicebear.com/api/bottts/{{buddy.avatar}}.svg" alt="">
                 <span class="{{buddy.status}}"></span>
             </div> 
             <div class="buddy-name">
@@ -16,7 +16,7 @@
 
     <div class="self">
         <button class="avatar">
-            <img src="https://avatars.dicebear.com/api/bottts/{{this.getCurrentUser().username}}.svg" alt="">
+            <img src="https://avatars.dicebear.com/api/bottts/{{this.getCurrentUser().avatar}}.svg" alt="">
             <span class="{{this.getCurrentUser().status}}"></span>
         </button>
         <div class="name">
@@ -24,7 +24,7 @@
             <span class="tag">#{{this.getCurrentUser().tag}}</span>
         </div>
         <div class="settings">
-            <button class="icon-button background" placement="top" ngbPopover="Open Settings"
+            <button class="icon-button background" placement="top" ngbPopover="{{this.languageProperties[this.getCurrentLanguage()].layout.settingsModal}}"
                 triggers="mouseenter:mouseleave" (click)="this.toggleSettings()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-gear-fill" viewBox="0 0 16 16">

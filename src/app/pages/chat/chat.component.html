@@ -2,7 +2,7 @@
     <div class="chat-history">
         <div *ngFor="let message of this.getMessages()" class="message">
             <div class="avatar">
-                <img src="https://avatars.dicebear.com/api/bottts/{{message.sender.username}}.svg" alt="avatar">
+                <img src="https://avatars.dicebear.com/api/bottts/{{message.sender.avatar}}.svg" alt="avatar">
             </div>
             <div class="message-content">
                 <div class="name">
@@ -18,7 +18,7 @@
     <div class="chat-input">
         <div class="input-wrapper">
             <textarea #chat (input)="this.onChange()" class="form-control" id="exampleFormControlTextarea1" rows="1"
-                placeholder="Message {{this.getParticipantsText(this.getRoomName())}}"></textarea>
+                placeholder="{{this.languageProperties[this.getCurrentLanguage()].layout.chatPlaceholder}} {{this.getParticipantsText(this.getRoomName())}}"></textarea>
             <button class="btn btn-purple chat-button" (click)="sendMessage()">
                 <span *ngIf="this.messageLoading()" class="spinner-border spinner-border-sm mr-1"></span>
                 <svg *ngIf="!this.messageLoading()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"

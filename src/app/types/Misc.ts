@@ -4,3 +4,7 @@ export interface APIError extends Error {
 }
 
 export type RawObjectId = string;
+
+export interface LanguageProperties {
+    [key: string]: any;
+}

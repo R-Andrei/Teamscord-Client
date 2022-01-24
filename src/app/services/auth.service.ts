@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginUserProps, ResponseUser, User, UserUpdateProps } from '../types/User';
+import { LoginUserProps, ProfileUpdateProps, ResponseUser, User, UserUpdateProps } from '../types/User';
 
 
 @Injectable({
@@ -96,20 +96,68 @@ export class AuthService {
         });
     }
 
+
+    public updateProfile(profileData: ProfileUpdateProps): Promise<ProfileUpdateProps> {
+        this.loading = true;
+        return new Promise((resolve, reject) => {
+            this.http.request('POST', 'auth/profile/update', {
+                body: {
+                    _id: this.user?._id,
+                    ...profileData
+                }
+            }).subscribe({
+                'next': (_: any) => {
+                    try {
+                        const updateUser = this.user;
+                        if (updateUser) {
+                            // update user object
+                            this.user = {
+                                ...updateUser,
+                                avatar: profileData.avatar || updateUser.avatar,
+                                language: profileData.language || updateUser.language
+                            };
+                            this.loading = false;
+                            resolve(profileData);
+
+                        } else {
+                            this.loading = false;
+                            throw new Error('User is not authenticated');
+                        }
+                    } catch (err) {
+                        this.loading = false;
+                        reject(err);
+                    }
+                },
+                'error': (err: Error) => {
+                    this.loading = false;
+                    reject(err);
+                }
+            });
+        });
+    }
+
     public removeUser(): void {
         this.user = null;
         localStorage.removeItem('user');
     }
 
+
     private buildUser(responseUser: ResponseUser): User {
-        const { _id, username, tag, email, createdAt, updatedAt, token, status } = responseUser;
+        const {
+            _id, username, tag, email,
+            createdAt, updatedAt,
+            token, status, avatar,
+            language
+        } = responseUser;
         if (
             _id && username && tag && email &&
             createdAt && updatedAt && token && status
+            && avatar && language
         ) {
             const user: User = {
                 _id, username, tag, email, status,
-                createdAt, updatedAt, token
+                createdAt, updatedAt, token, avatar,
+                language
             };
             return user;
         } else {
@@ -131,7 +179,7 @@ export class AuthService {
                 username: username || this.user.username,
                 tag: tag || this.user.tag,
                 email: email || this.user.email,
-                token: token || this.user.token
+                token: token || this.user.token,
             }
         } else {
             throw new Error('User is not authenticated');
