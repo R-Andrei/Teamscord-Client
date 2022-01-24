@@ -1,0 +1,148 @@
+@import "../../variables.scss";
+
+:host {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.chat-wrapper {
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+}
+
+.chat-history {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    padding-bottom: 10px;
+}
+
+.chat-history > .message {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    padding-bottom: 20px;
+    color: $secondary-color;
+    transition: background-color 0.05s ease-in-out;
+}
+
+.chat-history > .message:hover {
+    background-color: #1e2431;
+}
+
+.message > .avatar > img {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
+}
+
+.message > .message-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.message > .message-content > .name > .title {
+    font-weight: 800;
+    font-size: 16px;
+    color: $header-color;
+}
+
+.message > .message-content > .name > span:not(.title) {
+    font-size: 12px;
+    font-weight: 400;
+    color: $sidebar-color;
+    margin-left: 5px;
+}
+
+.message > .message-content > .text {
+    font-size: 14px;
+    font-weight: 400;
+    color: $primary-color;
+}
+
+
+
+
+.chat-input {
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.chat-input > .input-wrapper {
+    display: flex;
+    position: relative;
+    min-width: 400px;
+    width: 80%;
+    max-width: 1069px;
+}
+
+.input-wrapper > textarea {
+    position: relative;
+    margin: 0;
+    border: 0;
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    max-height: 303px;
+    font-weight: 600;
+    resize: none;
+    // override default border and radius here
+    // to add send button
+    border-top-right-radius:  0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: 0 !important;
+}
+.input-wrapper:hover > textarea, .input-wrapper:hover > button.btn.chat-button {
+    border-color: #845af588 !important;
+}
+
+.input-wrapper:focus-within > textarea {
+    border-color: $link-color !important;
+}
+
+
+.input-wrapper > button.btn.chat-button {
+    background: $tertiary-bg !important;
+    border: 1px solid $primary-bg !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out, color 0.1s ease-in-out !important;
+}
+
+.input-wrapper > button.btn.chat-button {
+    border-radius: 0 6px 6px 0 !important;
+    border-left: 0 !important;
+    box-shadow: 0 1px 1px 0 #00000040 !important;
+    color: $secondary-color !important;
+}
+
+.input-wrapper > button.btn.chat-button:hover {
+       color: $font-color !important;
+}
+
+.input-wrapper:focus-within > button.btn.chat-button {
+    border-color: $link-color !important;
+}
+
+.input-wrapper:focus-within > button.btn.chat-button:hover {
+    color: #8c60f4 !important;
+}

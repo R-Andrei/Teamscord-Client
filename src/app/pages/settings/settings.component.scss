@@ -1,0 +1,148 @@
+@import "../../variables.scss";
+
+:host {
+    z-index: 50; /* half of 100 which is login; normals start from 1 */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $secondary-bg;
+    color: $secondary-color;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.sidebar-region {
+    display: flex;
+    justify-content: flex-end;
+    width: 600px;
+    min-width: 220px;
+    height: 100%;
+    background-color: $primary-bg;
+    padding: 10px 20px;
+    padding-top: 100px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 200px;
+}
+
+span.separator {
+    width: 100%;
+    border-top: 1px solid $secondary-bg;
+    border-radius: 0;
+    margin: 5px 0;
+}
+
+.sidebar-nav > label {
+    font-size: 18px;
+    font-weight: 700 !important;
+    color: $sidebar-color;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+.sidebar-nav > button {
+    font-size: 18px;
+    font-weight: 600px;
+    padding: 8px;
+    padding: 4px 8px;
+    width: 100%;
+    text-align: left;
+    border: 0;
+    transition: background-color 0.1s ease-in-out;
+    margin: 2px 0;
+}
+
+.sidebar-nav > button.active {
+    background-color: $header-bg !important;
+}
+
+.sidebar-nav > button:not(.active):hover {
+    background-color: $secondary-bg !important;
+}
+
+.sidebar-nav > button > svg {
+    margin-right: 8px;
+    margin-top: -6px;
+}
+
+.sidebar-nav > button > span {
+    font-weight: 600 !important;
+}
+
+.btn.logout {
+    color: $red !important;
+    box-shadow: none !important;
+    font-weight: 700 !important;
+}
+
+.btn.exit {
+    box-shadow: none !important;
+    font-weight: 700 !important;
+    color: $sidebar-color !important;
+}
+
+.btn.exit:hover {
+    color: $purple !important;
+}
+
+.content-region {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    padding: 10px 20px;
+    padding-top: 100px;
+}
+
+.content-region > div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.content-region > div > .content {
+    width: 80%;
+    min-width: 500px;
+    padding: 0 20px;
+}
+
+.content > label {
+    font-size: 18px;
+    font-weight: 700 !important;
+    color: $header-color;
+    margin-bottom: 10px;
+}
+
+.content > .separator {
+    display: block;
+    border-color: $header-bg;
+    margin: 10px 0;
+}
+
+.account > .content > .user-info {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 0;
+    border-radius: 6px;
+    background-color: $tertiary-bg;
+    box-shadow: 0 1px 1px 1px #00000020;
+}
+.account > .content > .additional-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info > .info, .additional-info > .info {
+    display: flex;
+    flex-direction: column;
+}

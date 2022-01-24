@@ -1,0 +1,208 @@
+@import "../../variables.scss";
+
+.self {
+    width: 100%;
+    height: 70px;
+    padding: 10px 8px;
+    background-color: $tertiary-bg;
+    border-top: 1px solid $secondary-bg;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.self > button.avatar {
+    border: none;
+    background: none;
+    margin: none;
+    padding: none;
+    height: 100%;
+    position: relative;
+    padding: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+.self > button.avatar:hover {
+    opacity: 0.69;
+}
+
+.self > button.avatar > img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.self > .name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 10px;
+}
+
+.self > .name > label {
+    font-weight: 700 !important;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.self > .name > span {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500 !important;
+    color: $tertiary-color;
+    opacity: 0.69;
+}
+
+.self > .settings {
+    margin-left: auto;
+}
+
+.buddies-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 269px;
+}
+
+.buddies {
+    width: 100%;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.buddies > .title {
+    width: 100%;
+    height: 35px;
+    border: 0;
+    border-radius: 6px;
+    background-color: $secondary-bg;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+.buddies > .title.left {
+    justify-content: flex-start;
+}
+
+.buddies > .title > label {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.buddies > .buddy {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    margin-top: 10px;
+    background: none;
+    border: 0;
+    border-radius: 6px;
+}
+
+.buddies > .buddy:hover {
+    background-color: $secondary-bg;
+}
+
+.buddy > .avatar > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $tertiary-bg;
+}
+
+.buddy > .avatar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.buddy > .buddy-name {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    color: $secondary-color;
+    transition: color 0.2s ease-in-out;
+}
+
+.buddy:hover > .buddy-name {
+    color: $primary-color;
+}
+
+.buddy > .avatar > span,
+.self > .avatar > span {
+    position: absolute;
+    right: 2px;
+    bottom: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: $header-color;
+    border: 3px solid $primary-bg;
+}
+
+.self > .avatar > span {
+    width: 20px;
+    height: 20px;
+    right: 2px;
+    bottom: 0;
+    border-color: $tertiary-bg;
+}
+
+.buddy > .avatar > span::after,
+.self > .avatar > span::after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: 4px;
+    top: 3px;
+    left: 3px;
+    border: 0;
+    border-radius: 50%;
+    background-color: $sidebar-color;
+}
+
+.self > .avatar > span::after {
+    height: 6px;
+    width: 6px;
+    top: 4px;
+    left: 4px;
+}
+
+.buddy > .avatar > span.online,
+.self > .avatar > span.online {
+    background-color: $green;
+}
+.buddy > .avatar > span.online::after,
+.self > .avatar > span.online::after {
+    background-color: $green-alt;
+}
+
+.buddy > .avatar > span.busy,
+.self > .avatar > span.busy {
+    background-color: $red;
+}
+.buddy > .avatar > span.busy::after,
+.self > .avatar > span.busy::after {
+    background-color: $red-alt;
+}
+
+.buddy > .avatar > span.away,
+.self > .avatar > span.away {
+    background-color: $yellow;
+}
+.buddy > .avatar > span.away::after,
+.self > .avatar > span.away::after {
+    background-color: $yellow-alt;
+}

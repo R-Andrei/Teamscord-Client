@@ -1,0 +1,42 @@
+@import "../../variables.scss";
+
+:host {
+    z-index: 100;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $secondary-bg;
+    color: $secondary-color;
+}
+
+.login-form * {
+    font-family: "Nunito", sans-serif !important;
+}
+
+.login-form > .form-group.actions {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.form-group.actions > button {
+    width: 100%;
+}
+
+.form-group.actions > span {
+    font-size: 14px;
+    font-weight: 700;
+    color: $secondary-color;
+    margin-top: 10px;
+}
+
+.form-group.password {
+    margin-top: 15px;
+}
