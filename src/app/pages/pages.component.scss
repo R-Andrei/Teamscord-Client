@@ -1,0 +1,31 @@
+@import "../variables.scss";
+
+.chat-content {
+    z-index: 1;
+    display: flex;
+    justify-content: flex-start;
+    height: calc(100% - 60px);
+    width: 100%;
+}
+
+participants {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: 269px;
+}
+
+chat {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: calc(100% - 250px);
+    background-color: $secondary-bg;
+    color: $secondary-color;
+    overflow-y: auto;
+}

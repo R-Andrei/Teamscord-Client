@@ -1,0 +1,81 @@
+<div class="sidebar-region">
+    <div class="sidebar-nav">
+        <label>Settings</label>
+        <button [ngClass]="{'active': settingsTab===0}" (click)="this.updateSettingsTab(0)" class="icon-button account">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill"
+                viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+            </svg>
+            <span>Account</span>
+        </button>
+        <button [ngClass]="{'active': settingsTab===1}" (click)="this.updateSettingsTab(1)" class="icon-button profile">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-person-badge-fill" viewBox="0 0 16 16">
+                <path
+                    d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z" />
+            </svg>
+            <span>Profile</span>
+        </button>
+        <span class="separator"></span>
+        <button [ngClass]="{'active': settingsTab===2}" (click)="this.updateSettingsTab(2)" class="icon-button about">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                <path
+                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+            </svg>
+            <span>About</span>
+        </button>
+        <span class="separator"></span>
+        <button (click)="this.logout()" [disabled]="this.authLoading()" class="btn btn-red link-button logout">
+            <span *ngIf="this.authLoading()" class="spinner-border spinner-border-sm mr-1"></span>
+            Log Out
+        </button>
+        <button (click)="this.toggleSettings()" [disabled]="this.authLoading()" class="btn btn-red link-button exit">
+            Exit
+        </button>
+    </div>
+</div>
+<div class="content-region">
+    <div *ngIf="settingsTab===0" class="account">
+        <div class="content">
+            <label>Account</label>
+            <div *ngIf="!this.editing" class="user-info">
+                <div class="info username">
+                    <label>Username</label>
+                    <div class="name-tag">
+                        <span>{{this.user?.username}}</span>
+                        <span>#{{this.user?.tag}}</span>
+                    </div>
+                </div>
+                <div class="info email">
+                    <label>Email</label>
+                    <span>{{this.user?.email}}</span>
+                </div>
+            </div>
+            <form *ngIf="this.editing">
+                form here
+            </form>
+            <span class="separator"></span>
+            <div class="additional-info">
+                <div class="info joined">
+                    <label>Joined</label>
+                    <span>{{this.user?.createdAt}}</span>
+                </div>
+                <div class="info updated">
+                    <label>Updated</label>
+                    <span>{{this.user?.updatedAt}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="settingsTab===1" class="profile">
+        <div class="content">
+
+        </div>
+    </div>
+    <div *ngIf="settingsTab===2" class="about">
+        <div class="content">
+
+        </div>
+    </div>
+</div>
