@@ -1,0 +1,27 @@
+<div class="sidebar-content">
+    <div class="add-wrapper">
+        <button class="start-conversation" placement="right" [openDelay]="666" ngbPopover="Start Conversation"
+            triggers="mouseenter:mouseleave">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus"
+                viewBox="0 0 16 16">
+                <path
+                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+        </button>
+    </div>
+    <div class="chats-wrapper">
+        <a *ngFor="let room of this.getRooms(); index as i" routerLink="/chat/{{room._id}}" class="conversation group"
+            [ngClass]="{'active': this.checkActive(room._id)}" [openDelay]="69"
+            ngbPopover="{{this.getDisplayRoom(room).name}}" triggers="mouseenter:mouseleave"
+            placement="right" (click)="this.changeRoom(room._id)" >
+            <div class="avatar">
+                <img src="https://avatars.dicebear.com/api/{{this.getRoomAvatarStyle(room)}}/{{this.getRoomAvatar(room)}}.svg"
+                    alt="room avatar">
+            </div>
+            <div class="name">
+                <span class="title">{{this.getParticipantsText(this.getDisplayRoom(room).name)}}</span>
+                <span>{{this.getRoomUpdatedAt(room)}}</span>
+            </div>
+        </a>
+    </div>
+</div>
