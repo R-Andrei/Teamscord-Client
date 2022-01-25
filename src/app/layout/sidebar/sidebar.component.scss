@@ -42,8 +42,12 @@
 .sidebar-content > .add-wrapper > button:hover {
     background-color: $green-alt;
     color: $font-color;
-    border-radius: 14px;
-    width: 100%;
+    border-radius: 26px;
+    width: 80%;
+}
+
+.sidebar-content > .add-wrapper > button:active {
+    background-color: $green;
 }
 
 .sidebar-content > .chats-wrapper {

@@ -244,6 +244,48 @@ export class CommService {
         });
     }
 
+    public addBuddyToRoom(roomId: RawObjectId, email: string): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            this.http.request(
+                'POST',
+                'messages/rooms/add-buddy',
+                { body: { roomId, email } }
+            ).subscribe({
+                'next': (res: ResponseUser) => {
+                    const {
+                        _id, username, avatar, tag, email,
+                        language, createdAt, updatedAt, status,
+                    } = res;
+                    if (_id && username && avatar && tag && email && language && createdAt && updatedAt && status) {
+                        const validUser: User = {
+                            _id, username, avatar, tag,
+                            email, language, status,
+                            createdAt: new Date(createdAt), 
+                            updatedAt: new Date(updatedAt)
+                        };
+                        this.rooms = this.rooms.map(
+                            (room: Room): Room => {
+                                if (room._id === roomId) {
+                                    room.participants.push(validUser);
+                                }
+                                return room;
+                            }
+                        );
+                        resolve(true);
+                    } else {
+                        reject(new Error('Invalid user.'));
+                    }
+                },
+                'error': (err: Error) => {
+                    reject(err);
+                },
+                'complete': (): void => {
+                    resolve(true);
+                }
+            });
+        });
+    }
+
     private mapResponseRooms(responseRooms: ResponseRoomList): Rooms {
         return responseRooms.map(
             (responseRoom: ResponseRoom): Room => {
