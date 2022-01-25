@@ -3,11 +3,34 @@
         <div [ngClass]="{'left': this.participantsAlignedLeft()}" class="title">
             <label>{{this.getParticipantsText(this.getRoomName())}}</label>
         </div>
+        <form [formGroup]="formGroup" class="add-buddy-wrapper">
+            <button *ngIf="!this.addingBuddy" class="icon-button add-buddy-button"
+                ngbPopover="{{this.languageProperties[this.getCurrentLanguage()].layout.addBuddyButtonInfo}}"
+                triggers="mouseenter:mouseleave" placement="right" (click)="this.startAddBuddy()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                </svg>
+            </button>
+            <input formControlName="email" id="email" *ngIf="this.addingBuddy" type="text"
+                class="form-control ng-pristine add-buddy-input"
+                placeholder="{{this.languageProperties[this.getCurrentLanguage()].pages.settings.tabs.profile.addBuddyPlaceholder}}"
+                (keydown.enter)="this.addBuddyToRoom()">
+            <button *ngIf="this.addingBuddy" class="icon-button cancel-adding-buddy" (click)="this.cancelAddBuddy()">
+                <span *ngIf="this.addingBuddyLoading" class="spinner-border spinner-border-sm mr-1"></span>
+                <svg *ngIf="!this.addingBuddyLoading" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path
+                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </button>
+        </form>
         <button *ngFor="let buddy of this.getParticipants()" class="buddy">
             <div class="avatar">
                 <img src="https://avatars.dicebear.com/api/bottts/{{buddy.avatar}}.svg" alt="">
                 <span class="{{buddy.status}}"></span>
-            </div> 
+            </div>
             <div class="buddy-name">
                 <label>{{buddy.username}}</label>
             </div>
@@ -24,7 +47,8 @@
             <span class="tag">#{{this.getCurrentUser().tag}}</span>
         </div>
         <div class="settings">
-            <button class="icon-button background" placement="top" ngbPopover="{{this.languageProperties[this.getCurrentLanguage()].layout.settingsModal}}"
+            <button class="icon-button background" placement="top"
+                ngbPopover="{{this.languageProperties[this.getCurrentLanguage()].layout.settingsModal}}"
                 triggers="mouseenter:mouseleave" (click)="this.toggleSettings()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-gear-fill" viewBox="0 0 16 16">

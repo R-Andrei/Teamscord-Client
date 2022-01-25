@@ -83,7 +83,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     white-space: nowrap;
     overflow: hidden;
     padding: 0 10px;
@@ -205,4 +205,27 @@
 .buddy > .avatar > span.away::after,
 .self > .avatar > span.away::after {
     background-color: $yellow-alt;
+}
+
+.add-buddy-wrapper {
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.add-buddy-wrapper > button > svg {
+    width: 34px;
+    height: 34px;
+}
+
+.add-buddy-wrapper > button.cancel-adding-buddy {
+    padding: 0;
+    margin-right: -10px;
+}
+
+.add-buddy-wrapper > input.add-buddy-input {
+    background-color: $tertiary-bg !important;
 }

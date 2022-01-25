@@ -6,6 +6,7 @@ import { ChatComponent } from './chat/chat.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivityComponent } from './activity/activity.component';
 import { AutosizeModule } from 'ngx-autosize';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { AutosizeModule } from 'ngx-autosize';
     imports: [
         CommonModule,
         NgbModule,
-        AutosizeModule
+        AutosizeModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [
         PagesComponent,
