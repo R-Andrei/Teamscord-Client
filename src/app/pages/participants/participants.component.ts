@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 // @ts-ignore
 import * as language from '../../../environments/internationalization.json';
 import { LanguageProperties } from 'src/app/types/Misc';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -20,16 +21,29 @@ export class ParticipantsComponent implements OnInit {
 
     public readonly languageProperties: LanguageProperties = language;
 
+    public formGroup: FormGroup;
+    public addingBuddy: boolean = false;
+    public addingBuddyLoading: boolean = false;
+
     constructor(
         private layoutService: LayoutService,
         private commService: CommService,
         private location: Location,
         private authService: AuthService
     ) {
-        
+        this.formGroup = new FormGroup({
+            email: new FormControl('', [Validators.required])
+        });
+    }
+
+    private initForm() {
+        this.formGroup = new FormGroup({
+            email: new FormControl('', [Validators.required]),
+        });
     }
 
     ngOnInit(): void {
+        this.initForm();
     }
 
     toggleSettings() {
@@ -90,5 +104,34 @@ export class ParticipantsComponent implements OnInit {
             return room.participants;
         }
         return [];
+    }
+
+    public addBuddyToRoom() {
+        console.log('adding buddy');
+        this.addingBuddyLoading = true;
+        const room: Room | null = this.getRoom();
+        const email = this.formGroup.value.email;
+        if (room) {
+            this.commService.addBuddyToRoom(room._id, email)
+                .then((_: boolean) => {
+                    this.addingBuddy = false;
+                    this.addingBuddyLoading = false;
+                }).catch((err) => {
+                    console.error(err);
+                    this.addingBuddyLoading = false;
+                    this.addingBuddy = false;
+                });
+        } else {
+            console.error('No room found to add buddy to.');
+        }
+    }
+
+    public startAddBuddy() {
+        this.addingBuddy = true;
+
+    }
+
+    public cancelAddBuddy() {
+        this.addingBuddy = false;
     }
 }
