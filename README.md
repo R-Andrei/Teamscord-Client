@@ -1,4 +1,4 @@
-## Current Build - 0.1.0
+## Current Build - 0.1.2
 
 # Client
 
