@@ -1,5 +1,5 @@
 
-## Current Build - 0.1.2
+## Current Build - 0.1.3
 
 # Client
 
@@ -7,7 +7,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The default development server is running on port 3001. You can change this port by editing the `src/environments/environment.ts` file. The `port` property is set to `3001` by default, but you can change it to any other port you want.
+
+Run npm `start` script for a dev server. Navigate to `http://localhost:3001/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
