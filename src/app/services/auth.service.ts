@@ -141,6 +141,35 @@ export class AuthService {
         localStorage.removeItem('user');
     }
 
+    public updateUserStatus(status: string): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            // first get current user
+            const user: User | null = this.returnUser();
+            if (user) {
+                this.http.request<boolean>(
+                    'POST',
+                    'auth/profile/update-status',
+                    { body: { userId: user._id, status } }
+                ).subscribe({
+                    'next': (_: boolean) => {
+                        // if response is OK, update user status
+                        const updateUser = {
+                            ...user,
+                            status
+                        }
+                        this.setUser(updateUser);
+                        resolve(true);
+                    },
+                    'error': (err: Error) => {
+                        reject(err);
+                    }
+                });
+            } else {
+                reject(false);
+            }
+        });
+    }
+
 
     private buildUser(responseUser: ResponseUser): User {
         const {
@@ -167,24 +196,6 @@ export class AuthService {
 
     private setUser(user: User): void {
         this.user = user;
-        localStorage.setItem('user', JSON.stringify(user));
-    }
-
-    private updateUser(user: UserUpdateProps): void {
-        const { username, tag, email, token } = user;
-
-        if (this.user) {
-            this.user = {
-                ...this.user,
-                username: username || this.user.username,
-                tag: tag || this.user.tag,
-                email: email || this.user.email,
-                token: token || this.user.token,
-            }
-        } else {
-            throw new Error('User is not authenticated');
-        }
-
         localStorage.setItem('user', JSON.stringify(user));
     }
 }
