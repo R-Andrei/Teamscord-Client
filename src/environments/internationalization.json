@@ -3,7 +3,9 @@
         "layout": {
             "settingsModal": "Open Settings",
             "startConversation": "Start Conversation",
-            "chatPlaceholder": "Message"
+            "chatPlaceholder": "Message",
+            "addBuddyPlaceholder": "Enter email address",
+            "addBuddyButtonInfo": "Add someone to chat"
         },
         "pages": {
             "settings": {
@@ -39,7 +41,9 @@
         "layout": {
             "settingsModal": "Abrir Configuración",
             "startConversation": "Iniciar Conversación",
-            "chatPlaceholder": "Mensaje"
+            "chatPlaceholder": "Mensaje",
+            "addBuddyPlaceholder": "Introduzca dirección de correo electrónico",
+            "addBuddyButtonInfo": "Añadir a alguien para conversar"
         },
         "pages": {
             "settings": {
@@ -75,7 +79,9 @@
         "layout": {
             "settingsModal": "Ouvrir les paramètres",
             "startConversation": "Démarrer une conversation",
-            "chatPlaceholder": "Message"
+            "chatPlaceholder": "Message",
+            "addBuddyPlaceholder": "Entrez l'adresse e-mail",
+            "addBuddyButtonInfo": "Ajouter quelqu'un pour parler"
         },
         "pages": {
             "settings": {
@@ -111,7 +117,9 @@
         "layout": {
             "settingsModal": "Einstellungen öffnen",
             "startConversation": "Konversation starten",
-            "chatPlaceholder": "Nachricht"
+            "chatPlaceholder": "Nachricht",
+            "addBuddyPlaceholder": "E-Mail-Adresse eingeben",
+            "addBuddyButtonInfo": "Jemanden zum Chat hinzufügen"
         },
         "pages": {
             "settings": {
@@ -147,7 +155,9 @@
         "layout": {
             "settingsModal": "設定を開く",
             "startConversation": "会話を開始",
-            "chatPlaceholder": "メッセージ"
+            "chatPlaceholder": "メッセージ",
+            "addBuddyPlaceholder": "メールアドレスを入力",
+            "addBuddyButtonInfo": "誰かをチャットに追加"
         },
         "pages": {
             "settings": {

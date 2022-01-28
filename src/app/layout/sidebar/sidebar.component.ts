@@ -3,13 +3,15 @@ import { Location } from '@angular/common';
 import { format } from 'date-fns';
 
 import { CommService } from 'src/app/services/communication.service';
-import { DisplayRoom, Room, Rooms } from 'src/app/types/Room';
+import { DisplayRoom, Room, Rooms, SocketRoom } from 'src/app/types/Room';
 import { getTextWidth } from 'src/app/utils';
 import { AuthService } from 'src/app/services/auth.service';
 import { RawObjectId } from 'src/app/types/Misc';
 // @ts-ignore
 import * as language from '../../../environments/internationalization.json';
 import { LanguageProperties } from 'src/app/types/Misc';
+import { SocketService } from 'src/app/services/sockets.service';
+import { SocketRoomUser, User } from 'src/app/types/User';
 
 @Component({
     selector: 'sidebar',
@@ -19,11 +21,13 @@ import { LanguageProperties } from 'src/app/types/Misc';
 export class SidebarComponent implements OnInit {
 
     public readonly languageProperties: LanguageProperties = language;
+    public addLoading: boolean = false;
 
     constructor(
         private commService: CommService,
         private location: Location,
-        private authService: AuthService
+        private authService: AuthService,
+        private socketService: SocketService
     ) {
 
     }
@@ -95,5 +99,37 @@ export class SidebarComponent implements OnInit {
 
     public changeRoom(roomId: RawObjectId) {
         this.commService.retrieveMessages(roomId);
+    }
+
+    public createRoom() {
+        this.addLoading = true;
+        this.commService.createRoom()
+            .then((room: Room) => {
+                this.addLoading = false;
+                // add room to socket server
+                const socketRoom: SocketRoom = {
+                    _id: room._id,
+                    name: (room.name) ? room.name : null,
+                    participants: room.participants.map((participant: User): SocketRoomUser => {
+                        const { _id, username, avatar, tag, email, createdAt, updatedAt } = participant;
+                        const socketUser: SocketRoomUser = {
+                            _id,
+                            username,
+                            avatar,
+                            tag,
+                            email,
+                            createdAt,
+                            updatedAt
+                        }
+                        return socketUser;
+                    }),
+                    createdAt: room.createdAt,
+                    updatedAt: room.updatedAt
+                }
+                this.socketService.addRoom(socketRoom);
+            })
+            .catch(() => {
+                this.addLoading = false;
+            });
     }
 }

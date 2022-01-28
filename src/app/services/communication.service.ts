@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 // @ts-ignore
 import _ from 'lodash';
 
-import { ResponseRoom, ResponseRoomList, ResponseRooms, Room, Rooms } from '../types/Room';
+import { ResponseRoom, ResponseRoomList, ResponseRooms, Room, Rooms, SocketRoom } from '../types/Room';
 import { RawObjectId } from '../types/Misc';
 import { MessageUser, ProfileUpdateProps, ResponseUser, User } from '../types/User';
 import { ResponseMessage, ResponseMessageList, ResponseMessages } from '../types/Message';
@@ -81,6 +81,28 @@ export class CommService {
                         const rooms: Rooms = this.mapResponseRooms(res.data);
                         this.rooms = rooms;
                         resolve(true);
+                    } else {
+                        reject(new Error('Invalid response.'));
+                    }
+                },
+                'error': (err: Error) => {
+                    reject(err);
+                }
+            });
+        });
+    }
+
+    public retrieveRoom(roomId: RawObjectId): Promise<Room> {
+        return new Promise<Room>((resolve, reject) => {
+            this.http.request(
+                'POST',
+                'messages/rooms/retrieve',
+                { body: { roomId } }
+            ).subscribe({
+                'next': (res: ResponseRoom) => {
+                    if (res) {
+                        const room: Room = this.mapResponseRooms([res])[0];
+                        resolve(room);
                     } else {
                         reject(new Error('Invalid response.'));
                     }
@@ -244,11 +266,51 @@ export class CommService {
         });
     }
 
-    public addBuddyToRoom(roomId: RawObjectId, email: string): Promise<boolean> {
-        return new Promise<boolean>((resolve, reject) => {
+    public createRoom(): Promise<Room> {
+        return new Promise<Room>((resolve, reject) => {
+            const user: User | null = this.authService.returnUser();
+            if (user) {
+                this.http.request(
+                    'POST',
+                    'messages/rooms/create',
+                    { body: { userId: user._id } }
+                ).subscribe({
+                    'next': (res: ResponseRoom) => {
+                        console.log('got response room');
+                        const { _id, createdAt, updatedAt } = res;
+                        if (_id && createdAt && updatedAt) {
+                            const validRoom: Room = {
+                                _id,
+                                name: null,
+                                // add participant here since we don't add it in the server
+                                participants: [user],
+                                messages: [],
+                                loaded: true,
+                                createdAt: new Date(createdAt),
+                                updatedAt: new Date(updatedAt)
+                            };
+                            console.log('pushing valid room', validRoom);
+                            this.rooms.push(validRoom);
+                            resolve(validRoom);
+                        } else {
+                            reject(new Error('Invalid room.'));
+                        }
+                    },
+                    'error': (err: Error) => {
+                        reject(err);
+                    }
+                });
+            } else {
+                reject(false);
+            }
+        });
+    }
+
+    public addBuddyToRoom(roomId: RawObjectId, email: string): Promise<User> {
+        return new Promise<User>((resolve, reject) => {
             this.http.request(
                 'POST',
-                'messages/rooms/add-buddy',
+                'messages/rooms/add',
                 { body: { roomId, email } }
             ).subscribe({
                 'next': (res: ResponseUser) => {
@@ -260,7 +322,7 @@ export class CommService {
                         const validUser: User = {
                             _id, username, avatar, tag,
                             email, language, status,
-                            createdAt: new Date(createdAt), 
+                            createdAt: new Date(createdAt),
                             updatedAt: new Date(updatedAt)
                         };
                         this.rooms = this.rooms.map(
@@ -271,19 +333,37 @@ export class CommService {
                                 return room;
                             }
                         );
-                        resolve(true);
+                        resolve(validUser);
                     } else {
                         reject(new Error('Invalid user.'));
                     }
                 },
                 'error': (err: Error) => {
                     reject(err);
-                },
-                'complete': (): void => {
-                    resolve(true);
                 }
             });
         });
+    }
+
+    public addRoom(room: SocketRoom): void {
+        const roomId = room._id;
+        const currentUser = this.authService.returnUser();
+
+        if (currentUser) {
+            this.retrieveRoom(roomId)
+                .then((validRoom: Room): void => {
+                    if (validRoom) {
+                        this.rooms.push(validRoom);
+                    }
+                }).catch(
+                    (err: Error): void => {
+                        // error
+                        console.error(err);
+                    });
+        } else {
+            // error
+            console.error('User not logged in.');
+        }
     }
 
     private mapResponseRooms(responseRooms: ResponseRoomList): Rooms {

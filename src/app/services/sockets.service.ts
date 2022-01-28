@@ -37,6 +37,14 @@ export class SocketService {
                 console.error('No user found.');
             }
         });
+
+        this.socket.on('subscribeToRoomDirective', (room: SocketRoom): void => {
+            // first emit room to socket server
+            this.socket.emit('subscribeToRoomCompliance', room._id);
+
+            // add room to commService
+            commService.addRoom(room);
+        });
     }
 
     public initSocket(): void {
@@ -84,6 +92,14 @@ export class SocketService {
 
     public sendMessage(message: Message): void {
         this.socket.emit('sendMessage', message);
+    }
+
+    public addToRoom(roomId: RawObjectId, participant: SocketRoomUser): void {
+        this.socket.emit('addToRoom', roomId, participant);
+    }
+
+    public addRoom(room: SocketRoom): void {
+        this.socket.emit('addRoom', room);
     }
 
 }

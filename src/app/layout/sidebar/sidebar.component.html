@@ -1,7 +1,8 @@
 <div class="sidebar-content">
     <div class="add-wrapper">
-        <button class="start-conversation" placement="right" [openDelay]="666" ngbPopover="{{this.languageProperties[this.getCurrentLanguage()].layout.startConversation}}"
+        <button (click)="this.createRoom()" class="start-conversation" placement="right" [openDelay]="666" ngbPopover="{{this.languageProperties[this.getCurrentLanguage()].layout.startConversation}}"
             triggers="mouseenter:mouseleave">
+            <span *ngIf="this.addLoading" class="spinner-border spinner-border-sm mr-1"></span>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus"
                 viewBox="0 0 16 16">
                 <path

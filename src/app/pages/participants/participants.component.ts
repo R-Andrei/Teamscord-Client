@@ -4,12 +4,13 @@ import { Location } from '@angular/common';
 import { getTextWidth } from 'src/app/utils';
 import { CommService } from 'src/app/services/communication.service';
 import { Room } from 'src/app/types/Room';
-import { User } from 'src/app/types/User';
+import { SocketRoomUser, User } from 'src/app/types/User';
 import { AuthService } from 'src/app/services/auth.service';
 // @ts-ignore
 import * as language from '../../../environments/internationalization.json';
 import { LanguageProperties } from 'src/app/types/Misc';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SocketService } from 'src/app/services/sockets.service';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class ParticipantsComponent implements OnInit {
         private layoutService: LayoutService,
         private commService: CommService,
         private location: Location,
-        private authService: AuthService
+        private authService: AuthService,
+        private socketService: SocketService
     ) {
         this.formGroup = new FormGroup({
             email: new FormControl('', [Validators.required])
@@ -107,15 +109,27 @@ export class ParticipantsComponent implements OnInit {
     }
 
     public addBuddyToRoom() {
-        console.log('adding buddy');
         this.addingBuddyLoading = true;
         const room: Room | null = this.getRoom();
         const email = this.formGroup.value.email;
         if (room) {
             this.commService.addBuddyToRoom(room._id, email)
-                .then((_: boolean) => {
+                .then((res: User) => {
                     this.addingBuddy = false;
                     this.addingBuddyLoading = false;
+                    // add user to socket room
+
+                    const buddy: SocketRoomUser = {
+                        _id: res._id,
+                        username: res.username,
+                        email: res.email,
+                        avatar: res.avatar,
+                        tag: res.tag,
+                        createdAt: res.createdAt,
+                        updatedAt: res.updatedAt,
+                    }
+                    this.socketService.addToRoom(room._id, buddy);
+
                 }).catch((err) => {
                     console.error(err);
                     this.addingBuddyLoading = false;
