@@ -45,7 +45,14 @@ export class ChatComponent implements OnInit {
         return this.commService.returnMessageLoading();
     }
 
-    public sendMessage() {
+    public sendMessage(event?: Event): void {
+        
+        if (event) {
+            // stop event from reaching onChange function
+            // this will cause the input's height to not be expanded
+            event.stopImmediatePropagation();
+        }
+
         const room: Room | null = this.getRoom();
         if (room) {
             this.commService.sendMessage(room._id, this.chat.nativeElement.value)
@@ -60,7 +67,8 @@ export class ChatComponent implements OnInit {
         }
     }
 
-    public onChange() {
+    public onChange(event: any) {
+        console.log('input event', event);
         // set style height to chat
         this.chat.nativeElement.style.height = "40px";
         if (`${this.chat.nativeElement.scrollHeight + 2}px` !== this.chat.nativeElement.style.height)
@@ -95,6 +103,9 @@ export class ChatComponent implements OnInit {
     public getMessages(): Messages {
         const room: Room | null = this.getRoom();
         if (room) {
+            this.chat.nativeElement.style.height = "40px";
+        if (`${this.chat.nativeElement.scrollHeight + 2}px` !== this.chat.nativeElement.style.height)
+            this.chat.nativeElement.style.height = this.chat.nativeElement.scrollHeight + 2 + 'px';
             return room.messages;
         }
         return [];

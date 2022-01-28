@@ -38,10 +38,20 @@
     </div>
 
     <div class="self">
-        <button class="avatar">
-            <img src="https://avatars.dicebear.com/api/bottts/{{this.getCurrentUser().avatar}}.svg" alt="">
-            <span class="{{this.getCurrentUser().status}}"></span>
-        </button>
+        <div ngbDropdown class="dropdown avatar">
+            <button class="btn btn-secondary dropdown-toggle avatar" type="button" id="dropdownMenu"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                <img src="https://avatars.dicebear.com/api/bottts/{{this.getCurrentUser().avatar}}.svg" alt="">
+                <span class="{{this.getCurrentUser().status}}"></span>
+            </button>
+            <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu">
+                <button (click)="this.updateUserStatus($event)" *ngFor="let status of this.userStatusesOptions" ngbDropdownItem class="dropdown-item"
+                    type="button" name={{status.value}}>
+                    {{status.label}}
+                </button>
+            </div>
+        </div>
+
         <div class="name">
             <label>{{this.getCurrentUser().username}}</label>
             <span class="tag">#{{this.getCurrentUser().tag}}</span>

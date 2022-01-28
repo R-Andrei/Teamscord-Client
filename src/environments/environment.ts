@@ -6,7 +6,9 @@ export const environment = {
   production: false
 };
 
-export const api_base: string = 'http://localhost:3001/api/v1/';
+export const port: number = 3001;
+
+export const api_base: string = `http://localhost:${port}/api/v1/`;
 
 /*
  * For easier debugging in development mode, you can import the following file

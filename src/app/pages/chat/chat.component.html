@@ -17,7 +17,7 @@
     </div>
     <div class="chat-input">
         <div class="input-wrapper">
-            <textarea #chat (input)="this.onChange()" class="form-control" id="exampleFormControlTextarea1" rows="1"
+            <textarea (keydown.enter)="this.sendMessage($event)" #chat (input)="this.onChange($event)" class="form-control" id="exampleFormControlTextarea1" rows="1"
                 placeholder="{{this.languageProperties[this.getCurrentLanguage()].layout.chatPlaceholder}} {{this.getParticipantsText(this.getRoomName())}}"></textarea>
             <button class="btn btn-purple chat-button" (click)="sendMessage()">
                 <span *ngIf="this.messageLoading()" class="spinner-border spinner-border-sm mr-1"></span>

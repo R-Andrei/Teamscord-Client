@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { getTextWidth } from 'src/app/utils';
 import { CommService } from 'src/app/services/communication.service';
 import { Room } from 'src/app/types/Room';
-import { SocketRoomUser, User } from 'src/app/types/User';
+import { SocketRoomUser, User, UserStatusesOptions, UserStatuses } from 'src/app/types/User';
 import { AuthService } from 'src/app/services/auth.service';
 // @ts-ignore
 import * as language from '../../../environments/internationalization.json';
@@ -22,6 +22,11 @@ export class ParticipantsComponent implements OnInit {
 
     public readonly languageProperties: LanguageProperties = language;
 
+    public userStatusesOptions: UserStatusesOptions = Object
+        .entries(UserStatuses)
+        .map(([key, userStatus], index) => {
+            return { key: index, value: key, label: userStatus };
+        });
     public formGroup: FormGroup;
     public addingBuddy: boolean = false;
     public addingBuddyLoading: boolean = false;
@@ -50,6 +55,22 @@ export class ParticipantsComponent implements OnInit {
 
     toggleSettings() {
         this.layoutService.toggleSettings();
+    }
+
+    public updateUserStatus(event: any): void {
+        const status: string = event?.target?.name;
+        if (status) {
+            this.authService.updateUserStatus(status)
+                .then((_: boolean) => {
+                    this.commService.updateUserStatus(status);
+                    // TODO: call socket service to update user status
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        } else {
+            console.error('No status found.');
+        }
     }
 
     public getCurrentUser(): User {

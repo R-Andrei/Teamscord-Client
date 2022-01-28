@@ -435,6 +435,33 @@ export class CommService {
         }
     }
 
+    public updateUserStatus(status: string): void {
+        // get current user
+        const user: User | null = this.authService.returnUser();
+        if (user) {
+            this.rooms = this.rooms.map(
+                (room: Room): Room => {
+                    room.participants = room.participants.map(
+                        (participant: User): User => {
+                            if (participant._id === user._id) {
+                                return {
+                                    ...participant,
+                                    status
+                                };
+                            }
+                            return participant;
+                        }
+                    );
+                    return room;
+                });
+        } else {
+            // error
+            console.error('User not logged in.');
+        }
+        // map through every room and update the user's status
+
+    }
+
     private mapResponseMessages(responseMessages: ResponseMessageList): Message[] {
         return responseMessages.map(
             (responseMessage: ResponseMessage): Message => {
